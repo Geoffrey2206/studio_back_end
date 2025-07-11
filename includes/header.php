@@ -1,62 +1,90 @@
+<?php 
+if(!isset($page)) {
+    $page = basename($_SERVER['PHP_SELF'], '.php' );
+ } 
+ ?>
 <!DOCTYPE html>
 <html lang="fr">
   <!-- ==========================================================================
        HEAD - Métadonnées, styles et scripts
-       Description : Contient les métadonnées, liens CSS/JS, polices et favicon
+       Description : Contient les métadonnées, liens CSS/JS et polices
        ========================================================================== -->
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
     <!-- Awesome  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
 
     <!-- Custom CSS et Favicon -->
     <link rel="apple-touch-icon" href="./assets/img/favicon.png" />
     <link rel="icon" href="./assets/img/favicon.png" type="image/png" />
     <link rel="stylesheet" href="./css/style-header-footer.css" />
+    <?php if($page === "indexv2") : ?>
+    <link rel="stylesheet" href="./css/style-accueil.css" />
+    <?php elseif($page === "presentationv2") : ?>
+    <link rel="stylesheet" href="./css/style-presentation.css" />  
+    <?php elseif($page ==="contactv2") : ?>
+    <link rel="stylesheet" href="./css/style-contact.css" />
+    <?php elseif($page === "404v2") : ?>
     <link rel="stylesheet" href="./css/style-404.css" />
+    <?php elseif($page === "blog") : ?>
+    <link rel="stylesheet" href="./css/style-blog.css" />
+    <?php elseif($page === "article") : ?>
+    <link rel="stylesheet" href="./css/style-article.css" />
+    <?php elseif($page === "inscription" || "connexion") : ?>
+    <link rel="stylesheet" href="./css/style-inscriptions.css" />
+    <?php endif; ?>
+    
 
     <!-- partager le lien sur les réseaux sociaux -->
-    <meta property="og:title" content="Page non trouvée - Studio Sport & Coaching"><!-- 
-      og = Open Graph 
-      Définit le titre qui apparaîtra sur la carte de prévisualisation du lien.
-      Exemple : Quand quelqu’un partage ton lien sur Facebook, ce titre apparaîtra en grand.
-      --> 
-    <meta property="og:description" content="Oups ! La page que vous cherchez n'existe pas. Retournez à l'accueil.">
-    <meta property="og:image" content="./assets/img/logo.png">
-    <meta property="og:type" content="website">
+  <meta property="og:title" content="Accueil - Studio Sport & Coaching" /><!-- 
+    og = Open Graph 
+    Définit le titre qui apparaîtra sur la carte de prévisualisation du lien.
+    Exemple : Quand quelqu’un partage ton lien sur Facebook, ce titre apparaîtra en grand.
+    --> 
+  <meta property="og:description" content="Bienvenue sur le site officiel de Studio Sport & Coaching à Biarritz. Découvrez nos services et notre équipe." />
+  <meta property="og:image" content="./assets/img/logo.png" />
+  <meta property="og:type" content="website" />
 
-    <!-- Balises SEO 
+  <!-- Balises SEO 
      Ces balises sont lues par les moteurs de recherche pour indexer ton site et afficher des informations pertinentes dans les résultats
     -->
-    <meta name="description" content="Erreur 404 - La page demandée est introuvable. Rendez-vous sur notre page d’accueil pour continuer votre visite.">
-    <meta name="keywords" content="erreur 404, page non trouvée, studio sport Biarritz">
-    <meta name="author" content="Studio Sport & Coaching">
+  <meta name="description" content="Studio Sport & Coaching vous accueille à Biarritz pour des séances de sport personnalisées. Découvrez nos services et prenez rendez-vous." />
+  <meta name="keywords" content="sport Biarritz, studio coaching, entraînement personnalisé, bien-être, coach sportif" />
+  <meta name="author" content="Studio Sport & Coaching" />
 
-    <title>LE STUDIO - 404</title>
+    <title><?= $pageTitle ?? "LE STUDIO"?></title>
   </head>
 
   <body>
     <!-- ==========================================================================
-         HEADER - Navigation et Message 404
-         Description : Contient la barre de navigation et la section d'erreur 404
+         HEADER - Navigation et Carrousel
+         Description : Contient la barre de navigation et le carrousel principal
          ========================================================================== -->
     <header>
-      <!-- Navigation -->
-      <nav
-        class="navbar navbar-expand-lg bg-transparent position-absolute z-2 w-100"
-      >
+        <nav
+        class="navbar navbar-expand-lg bg-transparent position-absolute z-2 w-100 navins"
+        >
         <div class="container-fluid menu-logo p-0">
-          <a class="navbar-brand m-0" href="./index.html">
+          <a class="navbar-brand m-0" href="./indexv2.php">
             <img src="./assets/img/logo.png" class="logo" alt="Logo Le studio" />
           </a>
 
@@ -81,7 +109,7 @@
           >
             <ul class="navbar-nav color-menu font-oswald">
               <li class="nav-item hover-menu">
-                <a class="nav-link" aria-current="page" href="./404.html"
+                <a class="nav-link" aria-current="page" href="./404v2.php"
                   >L'EQUIPE</a
                 >
               </li>
@@ -100,7 +128,7 @@
                   <li>
                     <a
                       class="dropdown-item text-white hover-dropdown ps-3-responsive"
-                      href="./404.html"
+                      href="./404v2.php"
                     >
                       LE CYCLING
                     </a>
@@ -108,7 +136,7 @@
                   <li>
                     <a
                       class="dropdown-item text-white hover-dropdown ps-3-responsive"
-                      href="./presentation.html"
+                      href="./presentationv2.php"
                     >
                       LE TRAINING FONCTIONNEL
                     </a>
@@ -116,7 +144,7 @@
                   <li>
                     <a
                       class="dropdown-item text-white hover-dropdown ps-3-responsive"
-                      href="./404.html"
+                      href="./404v2.php"
                     >
                       LE CROSSFIT
                     </a>
@@ -124,7 +152,7 @@
                   <li>
                     <a
                       class="dropdown-item text-white hover-dropdown ps-3-responsive"
-                      href="./404.html"
+                      href="./404v2.php"
                     >
                       PERSONAL TRAINING - COACH PERSONNEL
                     </a>
@@ -133,19 +161,22 @@
               </li>
 
               <li class="nav-item hover-menu">
-                <a class="nav-link" href="./404.html">NOS OFFRES</a>
+                <a class="nav-link" href="./404v2.php">NOS OFFRES</a>
               </li>
               <li class="nav-item hover-menu">
-                <a class="nav-link" href="./404.html">PLANNING</a>
+                <a class="nav-link" href="./404v2.php">PLANNING</a>
               </li>
               <li class="nav-item hover-menu">
-                <a class="nav-link" href="./404.html">BLOG</a>
+                <a class="nav-link" href="./blog.php">BLOG</a>
               </li>
               <li class="nav-item hover-menu">
-                <a class="nav-link" href="./contact.html">CONTACT</a>
+                <a class="nav-link" href="./contactv2.php">CONTACT</a>
+              </li>
+              <li class="nav-item hover-menu">
+                <a class="nav-link" href="./inscription.php">INSCRIPTION</a>
               </li>
 
-              <li class="nav-item d-flex align-items-center ms-lg-5">
+              <li class="nav-item d-flex align-items-center mx-lg-1">
                 <a
                   class="nav-link d-flex align-items-center justify-content-center gap-2 me-2"
                   href="#"
@@ -196,22 +227,4 @@
         </div>
       </nav>
 
-      <!-- Message 404 -->
-      <section class="image-section">
-        <div class="overlay"></div>
-        <img src="./assets/img/404.jpg" alt="404 Error Page Image" class="responsive-img" />
-        <div class="message404 btn-404">
-          <h1>404</h1>
-          <h2>Page non trouvée</h2>
-          <a href="./index.html">Retourner à l'accueil</a>
-        </div>
-      </section>
-    </header>
-
-    <!-- ==========================================================================
-         SCRIPTS
-         Description : Chargement des scripts JavaScript
-         ========================================================================== -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
-</html>
+<?php include __DIR__ . '/../functions/banner_switch.php'; ?>

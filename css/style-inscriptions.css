@@ -1,0 +1,117 @@
+form input, form button {
+    display: flex;
+    margin-bottom: 10px;
+    padding: 8px;
+    width: 100%;
+}
+header {
+  position: fixed;
+  top: 0;
+  lmeft: 0;
+  width: 100%;
+  /* Autres styles... */
+}
+main {
+  padding-top: 80px; /* Hauteur du header */
+}
+.btn-primary {
+  background-color: #c3ac6e !important;
+  border-color: #c3ac6e !important;
+}
+.btn-primary:hover {
+  background-color: #a18d57 !important; /* Une teinte légèrement plus sombre pour le hover */
+  border-color: #a18d57 !important;
+}
+.navins {
+  background-color: #282828 !important;
+}
+.my-10{
+    margin-top: 10rem;
+    margin-bottom: 10rem;
+}
+.bg-color-dark {
+    background-color: #282828;
+}
+.py-10 {
+    padding-top: 2rem;
+    padding-bottom: 2rem; 
+    border-radius: 12px
+}
+.bg-fond {
+  background-image: url(../assets/img/bg_inscription.png);
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  min-height: 100vh;
+}
+.login-container {
+    max-width: 400px;
+    margin: 80px auto;
+    background-color: rgba(40, 40, 40);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    font-family: 'Segoe UI', sans-serif;
+   
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 28px;
+    color: white;
+    text-align: center;
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 6px;
+    color: white;
+    font-weight: bold;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    font-size: 16px;
+}
+
+.login-form input:focus {
+    border-color: #ffc107;
+    outline: none;
+    box-shadow: 0 0 8px #ffc10780;
+}
+
+.login-form button {
+    width: 100%;
+    padding: 14px;
+    background-color: #a67a1f;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #222;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form button:hover {
+    background-color: #e0a800;
+}
+
+.error-message {
+    color: #d32f2f;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+.text {
+  color: white;
+}

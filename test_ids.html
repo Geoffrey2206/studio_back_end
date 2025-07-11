@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test ID Uniques</title>
+</head>
+<body>
+    <script>
+        // Script de test pour vérifier les ID dupliqués
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔍 Vérification des ID dupliqués...');
+            
+            // Test pour edit-user-form
+            const editForms = document.querySelectorAll('#edit-user-form');
+            console.log(`Nombre d'éléments avec id="edit-user-form": ${editForms.length}`);
+            
+            if (editForms.length > 1) {
+                console.error('🔴 ERREUR: ID edit-user-form dupliqué!');
+                editForms.forEach((form, index) => {
+                    console.log(`Formulaire ${index + 1}:`, form);
+                });
+            } else if (editForms.length === 1) {
+                console.log('✅ ID edit-user-form unique - OK');
+            } else {
+                console.log('⚠️ Aucun élément avec id="edit-user-form" trouvé');
+            }
+            
+            // Test général pour tous les ID dupliqués
+            const allElements = document.querySelectorAll('[id]');
+            const ids = {};
+            const duplicates = [];
+            
+            allElements.forEach(element => {
+                const id = element.id;
+                if (ids[id]) {
+                    if (!duplicates.includes(id)) {
+                        duplicates.push(id);
+                    }
+                    ids[id]++;
+                } else {
+                    ids[id] = 1;
+                }
+            });
+            
+            if (duplicates.length > 0) {
+                console.error('🔴 ID dupliqués détectés:', duplicates);
+                duplicates.forEach(id => {
+                    console.log(`ID "${id}" trouvé ${ids[id]} fois`);
+                });
+            } else {
+                console.log('✅ Aucun ID dupliqué détecté');
+            }
+        });
+    </script>
+</body>
+</html>

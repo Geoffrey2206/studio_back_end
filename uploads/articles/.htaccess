@@ -1,0 +1,5 @@
+<IfModule mod_authz_core.c>
+    <FilesMatch "\.(php|js|exe|sh|py)$">
+        Require all denied
+    </FilesMatch>
+</IfModule>

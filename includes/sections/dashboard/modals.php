@@ -234,6 +234,8 @@
           <div class="mb-3">
             <label for="image" class="form-label">Image principale</label>
             <input type="file" class="form-control" id="image" name="image" accept=".jpg,.jpeg,.png">
+            <!-- 📸 Zone pour afficher l'image actuelle -->
+            <div id="current-image-preview" class="mt-3"></div>
           </div>
         </div>
         <!-- input pour gérer le descriptif image -->

@@ -1,5 +1,9 @@
 <?php
-include __DIR__ . '../../../data.php';
+// include __DIR__ . '../../../data.php';
+include __DIR__ . '/../../../functions/fonctions.php';
+
+$articles = getLastArticles(3);
+
 ?>
  <!-- ==========================================================================
          SECTION 3 - Actualités

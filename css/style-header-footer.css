@@ -307,6 +307,11 @@ h1, h2, h3, h5 {
     .carousel-item img {
         /* Images du carrousel à 500px pour mobiles */
         height: 500px;
+        object-fit: cover;
+    }
+    .container-xl {
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
 
     .navbar-collapse {
@@ -335,15 +340,37 @@ h1, h2, h3, h5 {
 @media (max-width: 991.98px) {
     .navbar-collapse {
         /* Menu mobile : fond noir */
-        width: 100% !important;
+        width: 100% !important;   
         background-color: #000 !important;
+        padding: 1rem;
+        position: absolute; /* Ajout pour éviter les débordements */
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 1000;
     }
 
     .navbar-nav a {
         /* Padding pour le menu mobile */
         padding: 10px 20px !important;
+        flex-direction: column;
+        align-items: start;
     }
-
+    .navbar-nav .nav-link {
+    color: white !important;
+    padding: 10px 0;
+    width: 100%;
+    }
+    .navbar-nav .nav-item {
+    width: 100%;
+    text-align: left;
+    }
+    .navbar-nav .dropdown-menu {
+    position: static !important;
+    background-color: #111;
+    border: none;
+    border-radius: 0;
+    }
     .ps-3-responsive {
         /* Padding gauche pour les éléments du menu déroulant */
         padding-left: 20px !important;
@@ -373,6 +400,10 @@ h1, h2, h3, h5 {
     .navbar-toggler {
         /* Masque le bouton mobile sur grands écrans */
         display: none !important;
+        border: none;
+    }
+    .navbar-toggler:focus {
+    box-shadow: none;
     }
 
     .menu-logo .logo {

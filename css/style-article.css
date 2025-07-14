@@ -1,0 +1,164 @@
+.main-article-image {
+    width: 100%;
+    height: 400px; /* Hauteur fixe pour maintenir les proportions */
+    object-fit: cover; /* L'image couvre tout l'espace sans déformation */
+    object-position: center; /* Centre l'image */
+    border-radius: 15px;
+}
+.article-image-contain {
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain; /* Affiche l'image entière */
+    object-position: center;
+    border-radius: 15px;
+    background: #000; /* Fond noir si l'image ne remplit pas tout l'espace */
+}
+.article-image-wrapper {
+    margin-bottom: 2rem;
+    overflow: hidden;
+    border-radius: 15px;
+}
+.article-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.article-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.article-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+.article-meta {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.article-image {
+    width: 100%;
+    height: 500px; /* Augmentation de la hauteur pour plus de présence */
+    object-fit: cover;
+    object-position: center;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); /* Ombre pour plus d'impact */
+    transition: transform 0.3s ease;
+}
+.article-image:hover {
+    transform: scale(1.02);
+}
+
+.article-body {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+}
+
+.article-body p {
+  margin-bottom: 1.5rem;
+}
+
+.article-body h2,
+.article-body h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+.back-to-blog {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #c3ac6e;
+  color: white;
+  text-decoration: none;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease;
+}
+
+.back-to-blog:hover {
+  background-color: #b59a58;
+  color: white;
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   2. Responsive Design
+   ========================================================================== */
+
+
+@media (min-width: 1200px) {
+    .article-image {
+        height: 600px; /* Encore plus grand sur les grands écrans */
+    }
+}
+
+/* --- Tablettes (≤ 991px) --- */
+@media (max-width: 991px) {
+  .article-content {
+    padding: 1.5rem;
+  }
+   .article-image {
+        height: 400px; /* Taille intermédiaire pour tablettes */
+    }
+  
+  .article-title {
+    font-size: 2rem;
+  }
+  
+  .article-image {
+    height: 300px;
+  }
+}
+
+/* --- Mobiles (≤ 768px) --- */
+@media (max-width: 768px) {
+  .article-content {
+    padding: 1rem;
+  }
+  
+  .article-title {
+    font-size: 1.5rem;
+  }
+  
+  .article-image {
+    height: 300px;
+  }
+  
+  .article-body {
+    font-size: 1rem;
+    }
+  
+    .back-to-blog {
+    width: 100%;
+    text-align: center;
+    }
+    .main-article-image {
+        height: 250px;
+    }
+    .article-image-contain {
+        max-height: 250px;
+    }
+}
+
+/* --- Petits mobiles (≤ 576px) --- */
+@media (max-width: 576px) {
+  .article-title {
+    font-size: 1.3rem;
+  }
+  
+  .article-image {
+    height: 250px;
+  }
+  
+  .article-body {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+}

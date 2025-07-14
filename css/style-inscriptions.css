@@ -7,8 +7,9 @@ form input, form button {
 header {
   position: fixed;
   top: 0;
-  lmeft: 0;
+  left: 0;
   width: 100%;
+  z-index: 1000;
   /* Autres styles... */
 }
 main {
@@ -31,6 +32,9 @@ main {
 }
 .bg-color-dark {
     background-color: #282828;
+    border-radius: 12px;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
 }
 .py-10 {
     padding-top: 2rem;
@@ -60,7 +64,7 @@ main {
     margin-bottom: 25px;
     font-size: 28px;
     color: white;
-    text-align: center;
+    
 }
 
 .login-form label {
@@ -114,4 +118,147 @@ main {
 }
 .text {
   color: white;
+}
+/* ==========================================================================
+   3. Responsive Design
+   ========================================================================== */
+
+/* --- Tablettes (≤ 991px) --- */
+@media (max-width: 991px) {
+    .login-container {
+        max-width: 450px;
+        margin: 60px auto;
+        padding: 25px;
+    }
+    
+    .login-container h2 {
+        font-size: 24px;
+    }
+    
+    .my-10 {
+        margin-top: 6rem;
+        margin-bottom: 6rem;
+    }
+}
+
+/* --- Mobiles (≤ 768px) --- */
+@media (max-width: 768px) {
+    .bg-fond {
+        padding: 1rem;
+    }
+    
+    .login-container {
+        max-width: 100%;
+        margin: 40px 1rem;
+        padding: 20px;
+    }
+    
+    .login-container h2 {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+    
+    .login-form input {
+        padding: 10px;
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+    
+    .login-form button {
+        padding: 12px;
+        font-size: 18px;
+    }
+    
+    .my-10 {
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+    }
+    
+    /* Ajustements pour le header sur mobile */
+    main {
+        padding-top: 70px;
+    }
+}
+
+/* --- Petits mobiles (≤ 576px) --- */
+@media (max-width: 576px) {
+    .bg-fond {
+        padding: 0.5rem;
+    }
+    
+    .login-container {
+        margin: 20px 0.5rem;
+        padding: 15px;
+        border-radius: 12px;
+    }
+    
+    .login-container h2 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+    
+    .login-form input {
+        padding: 8px;
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+    
+    .login-form button {
+        padding: 10px;
+        font-size: 16px;
+    }
+    
+    .my-10 {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    /* Texte plus petit sur très petits écrans */
+    .text {
+        font-size: 14px;
+    }
+    
+    /* Liens plus lisibles */
+    .text-warning {
+        font-weight: bold;
+    }
+}
+
+/* --- Très petits mobiles (≤ 400px) --- */
+@media (max-width: 400px) {
+    .login-container {
+        margin: 15px 0.25rem;
+        padding: 12px;
+    }
+    
+    .login-container h2 {
+        font-size: 18px;
+    }
+    
+    .login-form input {
+        padding: 6px;
+        font-size: 13px;
+    }
+    
+    .login-form button {
+        padding: 8px;
+        font-size: 15px;
+    }
+}
+
+/* ==========================================================================
+   4. Améliorations pour l'accessibilité
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    .login-form input,
+    .login-form button {
+        transition: none;
+    }
+}
+
+/* Mode sombre respecté */
+@media (prefers-color-scheme: dark) {
+    .login-container {
+        background-color: rgba(20, 20, 20, 0.98);
+    }
 }

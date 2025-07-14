@@ -1,0 +1,111 @@
+.custom-img {
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+  object-fit: cover;
+  height: 250px; /* ajuste si tu veux une hauteur uniforme */
+  transition: transform 0.3s ease;
+}
+.card {
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover .custom-img {
+  transform: scale(1.05);
+}
+
+.card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+.btn-gold {
+  background-color: #c3ac6e;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+.btn-gold:hover {
+  background-color: #b59a58;
+  color: #fff;
+}
+.custom-img {
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+  object-fit: cover;
+  height: 250px;
+  transition: transform 0.3s ease;
+  width: 100%; /* Ajout pour le responsive */
+}
+
+.card {
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover .custom-img {
+  transform: scale(1.05);
+}
+
+.card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-gold {
+  background-color: #c3ac6e;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-gold:hover {
+  background-color: #b59a58;
+  color: #fff;
+}
+
+/* ==========================================================================
+   Responsive Design pour le blog
+   ========================================================================== */
+
+/* --- Tablettes (≤ 991px) --- */
+@media (max-width: 991px) {
+  .custom-img {
+    height: 200px;
+  }
+  
+  .card {
+    margin-bottom: 2rem;
+  }
+}
+
+/* --- Mobiles (≤ 768px) --- */
+@media (max-width: 768px) {
+  .custom-img {
+    height: 180px;
+  }
+  
+  .btn-gold {
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+  }
+}
+
+/* --- Petits mobiles (≤ 576px) --- */
+@media (max-width: 576px) {
+  .custom-img {
+    height: 150px;
+  }
+  
+  .container-xl {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

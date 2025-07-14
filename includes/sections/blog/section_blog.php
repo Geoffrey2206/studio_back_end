@@ -7,7 +7,7 @@
             <div class="row">
                 <?php foreach ($articles as $article): ?>
                 <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow">
+                    <div class="card h-100 shadow d-flex flex-column">
                         <div style="height: 200px; overflow: hidden;">
                             <picture>
                                 <source srcset="<?= htmlspecialchars($article['img_thumbnail']) ?>" media="(max-width: 150px)">
@@ -16,16 +16,16 @@
                                 <source srcset="<?= htmlspecialchars($article['img_large']) ?>">
                                 <img src="<?= htmlspecialchars($article['img_large']) ?>"
                                     alt="<?= htmlspecialchars($article['img_alt'] ?? '') ?>"
-                                    class="w-100 h-100"
+                                    class="w-100 h-100 card_img-top rounded-top custom-img"
                                     style="object-fit: cover;">
                             </picture>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body d-flex flex-column flex-grow-1">
                             <h5 class="card-title"><?= htmlspecialchars($article['title_article']) ?></h5>
-                            <p class="card-text">
+                            <p class="card-text flex-grow-1">
                                 <?= mb_strimwidth(strip_tags($article['content_article']), 0, 100, '...') ?>
                             </p>
-                            <a href="article.php?id=<?= $article['id_article'] ?>" class="btn btn-primary">Lire la suite</a>
+                            <a href="article.php?id=<?= $article['id_article'] ?>" class="btn btn-gold w-100">Lire la suite</a>
                         </div>
                         <div class="card-footer text-muted small">
                             Par <?= htmlspecialchars($article['name_user'] . ' ' . $article['surname_user']) ?> -

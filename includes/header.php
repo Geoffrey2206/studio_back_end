@@ -11,7 +11,7 @@ if(!isset($page)) {
        ========================================================================== -->
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -49,7 +49,7 @@ if(!isset($page)) {
     <link rel="stylesheet" href="./css/style-blog.css" />
     <?php elseif($page === "article") : ?>
     <link rel="stylesheet" href="./css/style-article.css" />
-    <?php elseif($page === "inscription" || "connexion") : ?>
+    <?php elseif($page === "inscription" || $page === "connexion"|| $page === "login") : ?>
     <link rel="stylesheet" href="./css/style-inscriptions.css" />
     <?php endif; ?>
     

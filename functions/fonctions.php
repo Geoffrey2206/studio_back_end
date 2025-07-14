@@ -223,4 +223,19 @@ function resizeImage($sourcePath, $destPath, $newWidth, $newHeight) {
     imagedestroy($srcImage);
     imagedestroy($dstImage);
 }
+// fonction pour récupérer les derniers articles de la page blog qui sont stockés dans la Base de donnée.
+function getLastArticles($limit = 3) {
+    global $pdo;
+    $stmt = $pdo->prepare("
+        SELECT id_article, title_article, img_small, img_alt, content_article, created_at
+        FROM articles
+        WHERE statut = 'publie'
+        ORDER BY created_at DESC
+        LIMIT :limit
+    ");
+    $stmt->bindValue(':limit', (int) $limit, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
 ?>

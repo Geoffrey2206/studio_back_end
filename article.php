@@ -41,8 +41,8 @@ if (!$article) {
                 <source srcset="<?= htmlspecialchars($article['img_large']) ?>">
                 <img src="<?= htmlspecialchars($article['img_large']) ?>"
                     alt="<?= htmlspecialchars($article['img_alt'] ?? '') ?>"
-                    class="w-100 h-100"
-                    style="object-fit: cover;">
+                    class="article-image"
+                    >
             </picture>
         </div>
         <?php endif; ?>

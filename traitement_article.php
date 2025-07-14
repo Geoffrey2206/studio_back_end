@@ -199,4 +199,27 @@ try {
     echo json_encode(['success' => false, 'message' => 'Erreur SQL : ' . $e->getMessage()]);
 }
 
+$contenu = $_POST['contenu'] ?? '';
+
+preg_match_all('/uploads\/articles\/[^"]+\.(jpg|jpeg|png|webp)/i', $contenu, $matches);
+$imagesDansContenu = array_unique($matches[0]); // ex: [uploads/articles/abc.jpg, ...]
+
+if (!empty($imagesDansContenu)) {
+    try {
+        // Si l’article vient d’être inséré, on récupère son ID
+        if (!$articleId) {
+            $articleId = $pdo->lastInsertId();
+        }
+
+        // Stockage dans la colonne `images_dragdrop` (type TEXT ou JSON)
+        $stmt = $pdo->prepare("UPDATE articles SET images_dragdrop = :images WHERE id_article = :id");
+        $stmt->execute([
+            'images' => json_encode($imagesDansContenu),
+            'id' => $articleId
+        ]);
+
+    } catch (PDOException $e) {
+        error_log("Erreur enregistrement images drag&drop : " . $e->getMessage());
+    }
+}
 ?>

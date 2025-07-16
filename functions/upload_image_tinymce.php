@@ -1,6 +1,14 @@
 <?php
 // filepath: c:\wamp64\www\PHP-sport\Le-studio---GYMS\functions\upload_image_tinymce.php
 session_start();
+require_once __DIR__ . '/../functions/fonctions.php';
+$token = $_POST['csrf_token'] ?? '';
+
+if (!verifyCSRFToken($token)) {
+    http_response_code(403);
+    echo json_encode(['success' => false, 'message' => 'Token CSRF invalide ou expiré']);
+    exit;
+}
 header('Content-Type: application/json');
 
 // Vérification utilisateur connecté

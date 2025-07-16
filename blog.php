@@ -1,5 +1,6 @@
 <?php 
 require_once 'config/database.php';
+require_once 'functions/html_purifer.php'; // ✅ AJOUT
 
 $query = $pdo->query("
     SELECT a.*, u.name_user, u.surname_user 
@@ -10,6 +11,10 @@ $query = $pdo->query("
 ");
 
 $articles = $query->fetchAll();
+foreach ($articles as &$article) {
+    $article['content_article'] = cleanHtml($article['content_article']);
+}
+unset($article); // Libère la référence
 ?>
 <?php $page = basename($_SERVER['PHP_SELF'],'.php'); ?>
 <?php $pageTitle = "Blog - Salle de sport"?>

@@ -19,7 +19,7 @@
     border-radius: 15px;
 }
 .article-content {
-  max-width: 800px;
+  max-width: 80%;
   margin: 0 auto;
   padding: 2rem 1rem;
 }
@@ -52,6 +52,90 @@
 }
 .article-image:hover {
     transform: scale(1.02);
+}
+/* gestion image drag and drop par tinymce */
+.article-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 15px 0;
+    display: block;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.article-img.float-left {
+    float: left;
+    margin: 0 20px 15px 0;
+    max-width: 300px;
+}
+
+/* ✅ Images flottantes à droite */
+.article-img.float-right {
+    float: right;
+    margin: 0 0 15px 20px;
+    max-width: 300px;
+}
+
+/* ✅ Images centrées */
+.article-img.center {
+    margin: 20px auto;
+    display: block;
+}
+
+/* ✅ Petites images (thumbnails) */
+.article-img.small {
+    max-width: 200px;
+    float: left;
+    margin: 0 15px 10px 0;
+}
+
+/* ✅ Images moyennes */
+.article-img.medium {
+    max-width: 400px;
+}
+
+/* ✅ Images pleine largeur */
+.article-img.full-width {
+    width: 100%;
+    max-width: none;
+    margin: 25px 0;
+}
+.article-content img:not(.main-article-image):not(.article-image) {
+    max-width: 500px !important;
+    width: auto !important;
+    height: auto !important;
+    display: block;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ Spécifiquement pour les images avec classe article-img */
+.article-content .article-img {
+    max-width: 400px !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 20px auto !important;
+    display: block !important;
+}
+
+/* ✅ Images flottantes dans le contenu */
+.article-content .article-img.float-left {
+    float: left !important;
+    margin: 0 20px 15px 0 !important;
+    max-width: 300px !important;
+}
+
+.article-content .article-img.float-right {
+    float: right !important;
+    margin: 0 0 15px 20px !important;
+    max-width: 300px !important;
+}
+
+.article-content .article-img.center {
+    margin: 20px auto !important;
+    display: block !important;
+    max-width: 400px !important;
 }
 
 .article-body {
@@ -144,6 +228,20 @@
     }
     .article-image-contain {
         max-height: 250px;
+    }
+        .article-img.float-left,
+    .article-img.float-right {
+        float: none;
+        display: block;
+        margin: 15px auto;
+        max-width: 100%;
+    }
+    
+    .article-img.small {
+        max-width: 150px;
+        margin: 10px auto;
+        display: block;
+        float: none;
     }
 }
 

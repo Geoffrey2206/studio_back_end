@@ -15,6 +15,7 @@ $query = $pdo->query("
 ");
 
 $articles = $query->fetchAll();
+$auteursUniques = array_unique(array_map(fn($a) => $a['name_user'] . ' ' . $a['surname_user'], $articles)); 
 
 ?>
 <div class="header-card">
@@ -28,7 +29,7 @@ $articles = $query->fetchAll();
         <div class="col-md-6">
             <div class="search-box d-flex align-items-center">
                 <i class="fas fa-search me-2"></i>
-                <input type="text" class="form-control" placeholder="Rechercher un article...">
+                <input type="text" class="form-control" id="search-article" placeholder="Rechercher un article...">
             </div>
         </div>
 
@@ -40,9 +41,36 @@ $articles = $query->fetchAll();
             </button>
 
             <!-- Filtrage (à activer plus tard en AJAX) -->
-            <button class="btn btn-outline-secondary" id="filterBtn">
-                <i class="fas fa-filter me-1"></i> Filtrer
-            </button>
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownFilterBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-filter me-1"></i> Filtrer
+                </button>
+                <div class="dropdown-menu p-3 shadow" aria-labelledby="dropdownFilterBtn" style="min-width: 300px;">
+                    <div class="mb-3">
+                        <label for="filterStatus" class="form-label">Statut</label>
+                        <select class="form-select" id="filterStatus">
+                            <option value="">Tous</option>
+                            <option value="publie">Publié</option>
+                            <option value="brouillon">Brouillon</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="filterAuthor" class="form-label">Auteur</label>
+                        <select class="form-select" id="filterAuthor">
+                            <option value="">Tous</option>
+                            <!-- Ces options doivent être générées dynamiquement en PHP -->
+                            <?php foreach ($auteursUniques as $auteur): ?>
+                                <option value="<?= htmlspecialchars($auteur) ?>"><?= htmlspecialchars($auteur) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="filterDate" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="filterDate">
+                    </div>
+                    <button class="btn btn-primary w-100" id="applyFilterBtn">Appliquer</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -52,6 +80,7 @@ $articles = $query->fetchAll();
     <table class="table">
         <thead>
             <tr>
+                <th>Image</th>
                 <th>Titre</th>
                 <th>Auteur</th>
                 <th>Date</th>
@@ -60,11 +89,25 @@ $articles = $query->fetchAll();
             </tr>
         </thead>
         <tbody id="articlesTableBody">
+            
             <?php foreach ($articles as $article): ?>
-                <tr>
-                    <td><?= htmlspecialchars($article['title_article']) ?></td>
+                <tr data-id="<?= $article['id_article'] ?>">
+                    <td class="d-flex align-items-center gap-3">
+                        <?php if (!empty($article['img_thumbnail'])): ?>
+                            <img src="/PHP-sport/Le-studio---GYMS/<?= htmlspecialchars($article['img_thumbnail']) ?>" 
+                            alt="Miniature de l'article" 
+                            style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px;">
+                        <?php else: ?>
+                            <img src="/PHP-sport/Le-studio---GYMS/img/default-thumb.png" 
+                            alt="Miniature par défaut" 
+                            style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px;">
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <span class="article-title"><?= htmlspecialchars($article['title_article']) ?></span>
+                    </td>
                     <td><?= htmlspecialchars($article['name_user'] . ' ' . $article['surname_user']) ?></td>
-                    <td><?= date('d/m/Y', strtotime($article['created_at'])) ?></td>
+                    <td class="date-cell"><?= date('d/m/Y', strtotime($article['updated_at'] ?? $article['created_at'])) ?></td>
                     <td>
                         <?php
                         $status = $article['statut'] ?? 'brouillon';
@@ -77,7 +120,19 @@ $articles = $query->fetchAll();
                         <span class="badge <?= $badgeClass ?>"><?= ucfirst($status) ?></span>
                     </td>
                     <td class="d-flex gap-2">
-                       <button 
+                    <?php
+                    $currentUserId = $_SESSION['user_id'] ?? null;
+                    $currentUserRole = $_SESSION['role'] ?? '';
+
+                    $isOwner = $article['id_user'] == $currentUserId;
+                    $isAdmin = $currentUserRole === 'Administrateur';
+                    $isModerator = $currentUserRole === 'Modérateur';
+
+                    // ADMIN = peut tout faire
+                    // MODÉRATEUR = ne peut gérer QUE ses propres articles
+                    if ($isAdmin || ($isModerator && $isOwner)) :
+                    ?>
+                        <button 
                             class="btn btn-warning btn-sm edit-article-btn"
                             data-bs-toggle="modal"
                             data-bs-target="#articleModal"
@@ -85,6 +140,8 @@ $articles = $query->fetchAll();
                             data-title="<?= htmlspecialchars($article['title_article'], ENT_QUOTES) ?>"
                             data-content="<?= htmlspecialchars($article['content_article'], ENT_QUOTES) ?>"
                             data-statut="<?= $article['statut'] ?>"
+                            data-image="<?= htmlspecialchars($article['img_large'] ?? '', ENT_QUOTES) ?>"
+                            data-alt="<?= htmlspecialchars($article['img_alt'] ?? '', ENT_QUOTES) ?>"
                         >
                             <i class="fas fa-edit"></i>
                         </button>
@@ -94,7 +151,8 @@ $articles = $query->fetchAll();
                         >
                             <i class="fas fa-trash-alt"></i>
                         </button>
-                    </td>
+                    <?php endif; ?>
+                </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

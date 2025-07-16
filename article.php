@@ -3,8 +3,8 @@ $page = basename($_SERVER['PHP_SELF'],'.php');
 $pageTitle = "Article - Salle de sport";
 
 require_once __DIR__ . '/config/database.php'; // ou ajuste ton chemin
+require_once __DIR__ . '/functions/html_purifer.php'; // ✅ AJOUT CRUCIAL
 require_once __DIR__ . '/includes/header.php';
-
 // Sécurité : cast de l’ID
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 
@@ -23,6 +23,9 @@ if (!$article) {
     require_once __DIR__ . '/includes/footer.php';
     exit;
 }
+?>
+<?php
+$article['content_article'] = cleanHtml($article['content_article']);
 ?>
     <div class="container my-5">
         <a href="blog.php" class="btn btn-outline-secondary mb-4">← Retour aux articles</a>

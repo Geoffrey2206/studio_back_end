@@ -5,6 +5,7 @@
 <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserLabel" aria-hidden="true">
     <div class="modal-dialog">
         <form method="POST" id="create-user-form">
+            <?= getCSRFTokenField(); ?>
             <input type="hidden" name="create_user" value="1">
             <div class="modal-content">
                 <div class="modal-header">
@@ -85,6 +86,7 @@
 <div class="modal fade" id="replyModal" tabindex="-1" aria-labelledby="replyModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <form id="replyForm" action="traitement_reponse.php" method="POST">
+      <?= getCSRFTokenField(); ?>  
       <div class="modal-content">
         <div class="modal-header bg-success text-white">
           <h5 class="modal-title" id="replyModalLabel">Répondre au message</h5>
@@ -153,6 +155,7 @@
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <form id="edit-user-form" method="POST">
+      <?= getCSRFTokenField(); ?>
       <div class="modal-content shadow-lg border-0">
         <div class="modal-header bg-warning text-dark">
           <h5 class="modal-title" id="editModalLabel"><i class="fas fa-user-edit me-2"></i>Modifier l'utilisateur</h5>
@@ -207,6 +210,7 @@
 <div class="modal fade" id="articleModal" tabindex="-1" aria-labelledby="articleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <form id="articleForm" method="POST" action="functions/traitement_article.php" enctype="multipart/form-data">
+      
       <div class="modal-content">
         <div class="modal-header bg-primary text-white">
           <h5 class="modal-title" id="articleModalLabel">Créer un article</h5>

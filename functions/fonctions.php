@@ -199,29 +199,51 @@ function isUser() {
     return isset($_SESSION['role']) && $_SESSION['role'] === 'Utilisateur';
 }
 // gestion de redimensionnement des images upload pour les articles.
-function resizeImage($sourcePath, $destPath, $newWidth, $newHeight) {
-    list($width, $height) = getimagesize($sourcePath);
+function resizeImage($sourcePath, $destPath, $newWidth, $newHeight)
+{
+    if (!file_exists($sourcePath)) return false;
+
+    $imageInfo = getimagesize($sourcePath);
+    if (!$imageInfo) return false;
+
+    list($width, $height) = $imageInfo;
+
     $srcImage = imagecreatefromstring(file_get_contents($sourcePath));
+    if (!$srcImage) return false;
+
     $dstImage = imagecreatetruecolor($newWidth, $newHeight);
 
+    // Gère la transparence pour PNG
     imagealphablending($dstImage, false);
     imagesavealpha($dstImage, true);
 
     imagecopyresampled($dstImage, $srcImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
 
     $extension = strtolower(pathinfo($destPath, PATHINFO_EXTENSION));
+    $result = false;
+
     switch ($extension) {
         case 'jpg':
         case 'jpeg':
-            imagejpeg($dstImage, $destPath, 85);
+            $result = imagejpeg($dstImage, $destPath, 85);
             break;
         case 'png':
-            imagepng($dstImage, $destPath);
+            $result = imagepng($dstImage, $destPath);
             break;
+        case 'gif':
+            $result = imagegif($dstImage, $destPath);
+            break;
+        case 'webp':
+            $result = imagewebp($dstImage, $destPath);
+            break;
+        default:
+            $result = false;
     }
 
     imagedestroy($srcImage);
     imagedestroy($dstImage);
+
+    return $result;
 }
 // fonction pour récupérer les derniers articles de la page blog qui sont stockés dans la Base de donnée.
 function getLastArticles($limit = 3) {
@@ -238,4 +260,63 @@ function getLastArticles($limit = 3) {
     return $stmt->fetchAll();
 }
 
+/**
+ * Gestion des tokens CSRF
+ */
+
+function generateCSRFToken() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    
+    $token = bin2hex(random_bytes(32));
+    $_SESSION['csrf_token'] = $token;
+    $_SESSION['csrf_token_time'] = time();
+    
+    return $token;
+}
+
+function getCSRFToken() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    
+    // Générer un nouveau token s'il n'existe pas ou s'il a expiré (1 heure)
+    if (!isset($_SESSION['csrf_token']) || 
+        !isset($_SESSION['csrf_token_time']) || 
+        (time() - $_SESSION['csrf_token_time']) > 3600) {
+        return generateCSRFToken();
+    }
+    
+    return $_SESSION['csrf_token'];
+}
+
+function verifyCSRFToken($token) {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    
+    // Vérifier que le token existe et n'a pas expiré
+    if (!isset($_SESSION['csrf_token']) || 
+        !isset($_SESSION['csrf_token_time']) ||
+        (time() - $_SESSION['csrf_token_time']) > 3600) {
+        return false;
+    }
+    
+    // Comparaison sécurisée
+    return hash_equals($_SESSION['csrf_token'], $token);
+}
+
+function requireCSRFToken() {
+    $token = $_POST['csrf_token'] ?? $_GET['csrf_token'] ?? '';
+    
+    if (!verifyCSRFToken($token)) {
+        http_response_code(403);
+        die('Token CSRF invalide ou expiré. Veuillez recharger la page.');
+    }
+}
+function getCSRFTokenField() {
+    $token = getCSRFToken();
+    return '<input type="hidden" name="csrf_token" value="' . htmlspecialchars($token, ENT_QUOTES, 'UTF-8') . '">';
+}
 ?>
